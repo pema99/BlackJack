@@ -1,0 +1,5 @@
+/home/pema99/Desktop/MonoGame projects/BlackJack/BlackJack/BlackJack/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/pema99/Desktop/MonoGame projects/BlackJack/BlackJack/BlackJack/bin/Debug/BlackJack.exe.mdb
+/home/pema99/Desktop/MonoGame projects/BlackJack/BlackJack/BlackJack/bin/Debug/BlackJack.exe
+/home/pema99/Desktop/MonoGame projects/BlackJack/BlackJack/BlackJack/obj/x86/Debug/BlackJack.exe
+/home/pema99/Desktop/MonoGame projects/BlackJack/BlackJack/BlackJack/obj/x86/Debug/BlackJack.exe.mdb
