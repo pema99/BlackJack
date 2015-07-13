@@ -1,27 +1,29 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace BlackJack
 {
 	class MainClass
 	{
-		Deck MainDeck = new Deck();
-		Hand Dealer = new Hand(2);
-		Hand Player = new Hand(2);
+		Deck MainDeck;
+		Hand Dealer;
+		Hand Player;
 
-		public static void Main(string[] args)
-		{
-			new MainClass().Start();	
-		}
+		public static void Main(string[] args) { new MainClass().Start(); }
 
 		public void Start()
 		{
+			MainDeck = new Deck();
+			Dealer = new Hand(2, "Dealer");
+			Player = new Hand(2, "Player");
+
 			Console.Clear();
 
 			for (int i = 0; i < 2; i++)
+			{
 				MainDeck.DealCard(Dealer);
-
-			for (int i = 0; i < 2; i++)
 				MainDeck.DealCard(Player);
+			}
 
 			Console.WriteLine("-- Initial hands --");
 			//1st card is secret
@@ -37,10 +39,7 @@ namespace BlackJack
 				{
 					MainDeck.DealCard(Player);
 
-					string PlayerCards = "";
-					foreach (Card c in Player.Data)
-						PlayerCards += c.ToString() + ", ";
-					Console.WriteLine("Your cards: " + PlayerCards.Remove(PlayerCards.LastIndexOf(",")));
+					PrintCards(Player);
 				}
 				else
 					break;
@@ -56,26 +55,26 @@ namespace BlackJack
 				}
 			}
 
-			if (Player.TotalPoints == 21)
-				Console.WriteLine("You win with 21 points.");
-			
-			Console.WriteLine("-- Start dealer turn --");
-
 			if (Player.TotalPoints < 21)
 			{
-				string DealerCards = "";
-				foreach (Card c in Dealer.Data)
-					DealerCards += c.ToString() + ", ";
-				Console.WriteLine("Dealer cards: " + DealerCards.Remove(DealerCards.LastIndexOf(",")) + " ("+Dealer.TotalPoints+" total)");
+				Console.WriteLine("-- Start dealer turn --");
+
+				if (Dealer.TotalPoints > 21)
+				{
+					Console.WriteLine("You win, dealer has more than 21 points.");
+				}
+
+				PrintCards(Dealer);
+
+				if (Dealer.TotalPoints > Player.TotalPoints && Dealer.TotalPoints < 21)
+					Console.WriteLine("Dealer wins, more points than you.");
+				if (Dealer.TotalPoints == 21)
+					Console.WriteLine("Dealer wins with 21 points.");
 
 				while (Dealer.TotalPoints <= Player.TotalPoints)
 				{
 					MainDeck.DealCard(Dealer);
-
-					DealerCards = "";
-					foreach (Card c in Dealer.Data)
-						DealerCards += c.ToString() + ", ";
-					Console.WriteLine("Dealer cards: " + DealerCards.Remove(DealerCards.LastIndexOf(",")) + " ("+Dealer.TotalPoints+" total)");
+					PrintCards(Dealer);
 
 					if (Dealer.TotalPoints == 21)
 					{
@@ -94,6 +93,19 @@ namespace BlackJack
 					}
 				}
 			}
+
+			Console.WriteLine("-- Play again? (y/n) --");
+
+			if (Console.ReadKey(true).Key == ConsoleKey.Y)
+				Start();
+		}
+
+		public void PrintCards(Hand hand)
+		{
+			string Cards = "";
+			foreach (Card c in hand.Data)
+				Cards += c.ToString() + ", ";
+			Console.WriteLine(hand.Name + " cards: " + Cards.Remove(Cards.LastIndexOf(",")) + " ("+hand.TotalPoints+" total)");
 		}
 	}
 }

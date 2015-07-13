@@ -6,8 +6,8 @@ namespace BlackJack
 	{
 		Two = 2,
 		Three = 3,
-		Five = 4,
-		Four = 5,
+		Four = 4,
+		Five = 5,
 		Six = 6,
 		Seven = 7,
 		Eight = 8,

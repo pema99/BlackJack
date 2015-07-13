@@ -6,6 +6,7 @@ namespace BlackJack
 	public class Hand
 	{
 		public List<Card> Data = new List<Card>();
+		public string Name;
 
 		/// <summary>
 		/// Gets the total points of this hand.
@@ -24,9 +25,10 @@ namespace BlackJack
 			}
 		}
 
-		public Hand (int HandSize)
+		public Hand (int HandSize, string Name)
 		{
 			Data.Capacity = HandSize;
+			this.Name = Name;
 		}
 
 		/// <summary>
